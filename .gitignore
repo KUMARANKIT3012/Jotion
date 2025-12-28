@@ -30,8 +30,27 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Environment variables - NEVER commit these!
+.env
+.env*.local
+.env.development
+.env.production
+.env.staging
+.env.test
+
+# Convex
+.env.convex
+
+# Clerk authentication
+.env.clerk
+
+# Database
+.env.database
+
+# API Keys and secrets
+*.key
+*.secret
+config/secrets.json
 
 # vercel
 .vercel
@@ -39,3 +58,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
