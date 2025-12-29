@@ -47,10 +47,28 @@ yarn-error.log*
 # Database
 .env.database
 
+# Local environment files
+.env.local.backup
+.env.backup
+.env.dev
+.env.prod
+
+# Authentication files
+auth.json
+credentials.json
+
 # API Keys and secrets
 *.key
 *.secret
 config/secrets.json
+secrets/
+*.pem
+*.p12
+*.pfx
+
+# Logs
+logs
+*.log
 
 # vercel
 .vercel
