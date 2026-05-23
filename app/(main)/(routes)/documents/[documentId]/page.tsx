@@ -1,5 +1,6 @@
 "use client";
 
+import { Chatbot } from "@/components/chatbot";
 import { use } from "react";
 import { useMutation, useQuery } from "convex/react";
 import dynamic from "next/dynamic";
@@ -69,6 +70,7 @@ const DocumentIdPage = ({
           initialContent={document.content}
         />
       </div>
+      <Chatbot />
     </div>
   );
 };
