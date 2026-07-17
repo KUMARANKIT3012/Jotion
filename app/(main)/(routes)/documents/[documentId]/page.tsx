@@ -12,7 +12,6 @@ import { Toolbar } from "@/components/toolbar";
 import { Cover } from "@/components/cover";
 import { Skeleton } from "@/components/ui/skeleton";
 // import { Editor } from "@/components/editor";
-import {Chatbot} from "@/components/chatbot";
 
 interface DocumentIdPageProps {
   params: Promise<{
