@@ -1,20 +1,25 @@
 "use client";
-"use client";
 
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 
 export const Chatbot = () => {
+
   const { isSignedIn } = useUser();
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [input, setInput] = useState("");
+
   const [messages, setMessages] = useState<any[]>([]);
+
   const [loading, setLoading] = useState(false);
 
   if (!isSignedIn) return null;
 
   const sendMessage = async () => {
+
     if (!input) return;
 
     setLoading(true);
@@ -24,13 +29,18 @@ export const Chatbot = () => {
       content: input,
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [
+      ...prev,
+      userMessage,
+    ]);
 
     const response = await fetch("/api/chat", {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify({
         message: input,
       }),
@@ -38,13 +48,20 @@ export const Chatbot = () => {
 
     const data = await response.json();
 
-    setMessages((prev) => [...prev, data]);
+    setMessages((prev) => [
+      ...prev,
+      data,
+    ]);
+
     setInput("");
+
     setLoading(false);
   };
 
   return (
     <>
+      {/* Floating Button */}
+
       <button
         onClick={() => setIsOpen(true)}
         className="
@@ -65,6 +82,8 @@ export const Chatbot = () => {
       >
         <MessageCircle size={24} />
       </button>
+
+      {/* Chat Popup */}
 
       {isOpen && (
         <div
@@ -96,6 +115,8 @@ export const Chatbot = () => {
             overflow-hidden
           "
         >
+          {/* Header */}
+
           <div
             className="
               flex
@@ -130,6 +151,8 @@ export const Chatbot = () => {
               <X />
             </button>
           </div>
+
+          {/* Messages */}
 
           <div
             className="
@@ -178,6 +201,8 @@ export const Chatbot = () => {
             )}
           </div>
 
+          {/* Input */}
+
           <div
             className="
               p-4
@@ -192,7 +217,9 @@ export const Chatbot = () => {
           >
             <input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) =>
+                setInput(e.target.value)
+              }
               placeholder="Ask AI..."
               className="
                 flex-1

@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-import { NextResponse } from "next/server";
-
 export async function POST(req: Request) {
   try {
     const { message } = await req.json();
@@ -16,6 +14,7 @@ export async function POST(req: Request) {
         },
         body: JSON.stringify({
           model: "openai/gpt-oss-20b",
+
           messages: [
             {
               role: "system",
@@ -27,6 +26,7 @@ export async function POST(req: Request) {
               content: message,
             },
           ],
+
           temperature: 0.7,
         }),
       }
