@@ -1,23 +1,21 @@
 import { NextResponse } from "next/server";
 
+import { NextResponse } from "next/server";
+
 export async function POST(req: Request) {
   try {
-
     const { message } = await req.json();
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
-
         headers: {
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
-          model: "llama-3.1-8b-instant",
-
+          model: "openai/gpt-oss-20b",
           messages: [
             {
               role: "system",
@@ -29,7 +27,6 @@ export async function POST(req: Request) {
               content: message,
             },
           ],
-
           temperature: 0.7,
         }),
       }
@@ -37,33 +34,27 @@ export async function POST(req: Request) {
 
     const data = await response.json();
 
-    console.log(data);
-
-    if (!data.choices) {
+    if (!response.ok) {
+      console.error("Groq API Error:", data);
 
       return NextResponse.json(
         {
           role: "assistant",
           content:
-            "AI is temporarily unavailable.",
+            data?.error?.message || "AI is temporarily unavailable.",
         },
-        { status: 500 }
+        { status: response.status }
       );
     }
 
-    return NextResponse.json(
-      data.choices[0].message
-    );
-
+    return NextResponse.json(data.choices[0].message);
   } catch (error) {
-
-    console.log(error);
+    console.error(error);
 
     return NextResponse.json(
       {
         role: "assistant",
-        content:
-          "Something went wrong.",
+        content: "Something went wrong.",
       },
       { status: 500 }
     );
